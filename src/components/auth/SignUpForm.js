@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Segment, Header, Button } from 'semantic-ui-react';
 
 class SignUpForm extends Component {
   state = {
     email: '',
     password: '',
-    passwordConfirmation: ''    
+    passwordConfirmation: ''
   }
 
   handleOnChange = event => {
@@ -16,7 +17,9 @@ class SignUpForm extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    console.log('STATE', this.state);
+
+    const { email, password } = this.state;
+    this.props.signUpRequiest({ email, password });
   }
 
   render () {
@@ -63,6 +66,10 @@ class SignUpForm extends Component {
       </Segment>
     );
   }
+}
+
+SignUpForm.propTypes = {
+  signUpRequiest: PropTypes.func.isRequired
 }
 
 export default SignUpForm;
