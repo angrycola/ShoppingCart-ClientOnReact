@@ -1,36 +1,48 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { Form, Segment, Header, Button } from 'semantic-ui-react';
+import { validateSignUp } from '../../lib/validateAuth';
 
 class SignUpForm extends Component {
   state = {
     email: '',
     password: '',
-    passwordConfirmation: ''
+    passwordConfirmation: '',
+    errors: '',
+    redirect: false
   }
 
   handleOnChange = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      errors: ''
     });
   }
 
   onSubmit = event => {
-    event.preventDefault();
+  event.preventDefault();
+  const { email, password, errors, valid } = validateSignUp(this.state.email, this.state.password, this.state.passwordConfirmation)
 
-    const { email, password } = this.state;
-    this.props.signUpRequiest({ email, password });
+  if (valid) {
+    this.props.signUpRequest({ email, password });
+
+    this.setState({ redirect: true });
+  } else {
+    this.setState({ errors });
   }
+}
 
   render () {
-    const { email, password, passwordConfirmation } = this.state;
+    const { errors, redirect, email, password, passwordConfirmation } = this.state;
 
     return (
       <Segment>
-        <Form onSubmit={ this.onSubmit }>
+        { redirect && <Redirect to='/' /> }
+        <Form success error onSubmit={ this.onSubmit }>
           <Header size='large'>Sign Up</Header>
-          <Form.Field>
-            <label>Email</label>
+          <Form.Field error={ !!errors.invalidEmail }>
+            <label>Email { errors.invalidEmail ? ' must be valid' : '' }</label>
             <input
               onChange={ this.handleOnChange }
               onBlur={ this.checkUserExists }
@@ -40,8 +52,8 @@ class SignUpForm extends Component {
               placeholder='email@example.com'
               />
           </Form.Field>
-          <Form.Field>
-            <label>Password</label>
+          <Form.Field error={ !!errors.passwordLength }>
+            <label>Password { !!errors.passwordLength ? ' must contain 8+' : '' }</label>
             <input
               onChange={ this.handleOnChange }
               value={ password }
@@ -51,8 +63,8 @@ class SignUpForm extends Component {
             />
           </Form.Field>
 
-          <Form.Field>
-            <label>Password Confirmation</label>
+          <Form.Field error={ !!errors.confirmation  }>
+            <label>{ errors.confirmation ? 'Passwords must match' : 'Password Confirmation' }</label>
             <input
               onChange={ this.handleOnChange }
               value={ passwordConfirmation }
@@ -61,7 +73,7 @@ class SignUpForm extends Component {
             />
           </Form.Field>
 
-          <Button fluid>Sign Up</Button>
+          <Button fluid disabled={ errors !== '' }>Sign Up</Button>
         </Form>
       </Segment>
     );
@@ -69,7 +81,7 @@ class SignUpForm extends Component {
 }
 
 SignUpForm.propTypes = {
-  signUpRequiest: PropTypes.func.isRequired
+  signUpRequest: PropTypes.func.isRequired
 }
 
 export default SignUpForm;
