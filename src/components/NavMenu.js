@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import SignUpPage from './auth/SignUpPage';
 
 
