@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import SignUpPage from './auth/SignUpPage';
+import SignInPage from './auth/SignInPage';
 
 
 class NavMenu extends Component {
@@ -50,6 +51,7 @@ class NavMenu extends Component {
       </Menu>
 
       <Route path='/signup' component={ SignUpPage } />
+      <Route path='/signin' component={ SignInPage } />
       </div>
     );
   }

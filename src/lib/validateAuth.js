@@ -1,5 +1,6 @@
 import validator from 'validator';
 
+
 export const validateSignUp = (email, password, confirmation) => {
 
   const errors = {};
@@ -15,6 +16,21 @@ export const validateSignUp = (email, password, confirmation) => {
   }
 
   return  {
+    email, password, errors,
+    valid: Object.getOwnPropertyNames(errors).length > 0 ? false : true
+  };
+};
+
+export const validateSignIn = (email, password) => {
+  const errors = {};
+  if (!validator.isEmail(email)) {
+    errors.invalidEmail = ' must be valid';
+  }
+
+  if (validator.isEmpty(password)) {
+    errors.passwordPresent = ' must be present';
+  }
+  return {
     email, password, errors,
     valid: Object.getOwnPropertyNames(errors).length > 0 ? false : true
   };
