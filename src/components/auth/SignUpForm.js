@@ -10,7 +10,8 @@ class SignUpForm extends Component {
     password: '',
     passwordConfirmation: '',
     errors: '',
-    redirect: false
+    redirect: false,
+    isUserExists: false
   }
 
   handleOnChange = event => {
@@ -20,13 +21,23 @@ class SignUpForm extends Component {
     });
   }
 
+  checkUserExists = event => {
+    const email = event.target.value.trim();
+    if (email !== '') {
+      this.setState({ isUserExists: false });
+      this.props.isUserExists(email)
+        .then(res => {
+          this.setState({ isUserExists: true });
+      });
+    }
+  }
+
   onSubmit = event => {
   event.preventDefault();
   const { email, password, errors, valid } = validateSignUp(this.state.email, this.state.password, this.state.passwordConfirmation)
 
   if (valid) {
     this.props.signUpRequest({ email, password });
-
     this.setState({ redirect: true });
   } else {
     this.setState({ errors });
@@ -34,15 +45,15 @@ class SignUpForm extends Component {
 }
 
   render () {
-    const { errors, redirect, email, password, passwordConfirmation } = this.state;
+    const { isUserExists, errors, redirect, email, password, passwordConfirmation } = this.state;
 
     return (
       <Segment>
         { redirect && <Redirect to='/' /> }
         <Form success error onSubmit={ this.onSubmit }>
           <Header size='large'>Sign Up</Header>
-          <Form.Field error={ !!errors.invalidEmail }>
-            <label>Email { errors.invalidEmail ? ' must be valid' : '' }</label>
+          <Form.Field error={ !!errors.invalidEmail || isUserExists }>
+            <label>Email { isUserExists ? ' is already in use' : '' || errors.invalidEmail ? ' must be valid' : '' }</label>
             <input
               onChange={ this.handleOnChange }
               onBlur={ this.checkUserExists }
@@ -73,7 +84,7 @@ class SignUpForm extends Component {
             />
           </Form.Field>
 
-          <Button fluid disabled={ errors !== '' }>Sign Up</Button>
+          <Button fluid disabled={ errors !== '' || isUserExists }>Sign Up</Button>
         </Form>
       </Segment>
     );
@@ -81,7 +92,8 @@ class SignUpForm extends Component {
 }
 
 SignUpForm.propTypes = {
-  signUpRequest: PropTypes.func.isRequired
+  signUpRequest: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired
 }
 
 export default SignUpForm;

@@ -4,16 +4,17 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 import SignUpForm from './SignUpForm';
-import { signUpRequest } from '../../actions/auth';
+import { signUpRequest, isUserExists } from '../../actions/auth';
 
 class SignUpPage extends Component {
   render () {
-    const {signUpRequest } = this.props;
+    const { signUpRequest, isUserExists } = this.props;
     return (
       <Grid textAlign='left' centered>
         <Grid.Column width={ 8 }>
           <SignUpForm
             signUpRequest={ signUpRequest }
+            isUserExists={ isUserExists }
             />
         </Grid.Column>
       </Grid>
@@ -22,7 +23,10 @@ class SignUpPage extends Component {
 }
 
 SignUpPage.propTypes = {
-  signUpRequest: PropTypes.func.isRequired
+  signUpRequest: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired
 }
 
-export default connect (null, { signUpRequest })(SignUpPage);
+export default connect (null,
+  { signUpRequest, isUserExists }
+)(SignUpPage);
