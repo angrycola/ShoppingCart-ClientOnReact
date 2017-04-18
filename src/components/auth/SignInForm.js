@@ -49,37 +49,44 @@ class SignInForm extends Component {
   render () {
     const { errors, isUserExists, redirect, email, password } = this.state;
 
-    return (
+
+
+    const renderForm = (
       <Segment>
-          { redirect && <Redirect to='/' /> }
-          <Form onSubmit={ this.onSubmit }>
-            <Header size='large'>Sign In</Header>
+        <Form onSubmit={ this.onSubmit }>
+        <Header size='large'>Sign In</Header>
 
-            <Form.Field error={ !!errors.invalidEmail || isUserExists }>
-              <label>Email{ !!errors.invalidEmail ? errors.invalidEmail : '' || isUserExists ? ' wasn\'t found' : '' }</label>
-              <input
-                onChange={ this.handleOnChange }
-                onBlur={ this.checkUserExists }
-                value={ email }
-                name='email'
-                type='text'
-                placeholder='your email'
-              />
-            </Form.Field>
-            <Form.Field error={ !!errors.passwordPresent }>
-              <label>Password { errors.passwordPresent ? errors.passwordPresent : ''}</label>
-              <input
-                onChange={ this.handleOnChange }
-                value={ password }
-                name='password'
-                type='password'
-                placeholder='your password'
-              />
-            </Form.Field>
+        <Form.Field error={ !!errors.invalidEmail || isUserExists }>
+          <label>Email{ !!errors.invalidEmail ? errors.invalidEmail : '' || isUserExists ? ' wasn\'t found' : '' }</label>
+          <input
+            onChange={ this.handleOnChange }
+            onBlur={ this.checkUserExists }
+            value={ email }
+            name='email'
+            type='text'
+            placeholder='your email'
+          />
+        </Form.Field>
+        <Form.Field error={ !!errors.passwordPresent }>
+          <label>Password { errors.passwordPresent ? errors.passwordPresent : ''}</label>
+          <input
+            onChange={ this.handleOnChange }
+            value={ password }
+            name='password'
+            type='password'
+            placeholder='your password'
+          />
+        </Form.Field>
 
-            <Button fluid disabled={ errors !== '' || isUserExists }>Sign In</Button>
-          </Form>
-        </Segment>
+        <Button fluid disabled={ errors !== '' || isUserExists }>Sign In</Button>
+      </Form>
+      </Segment>
+    );
+
+    return (
+      <div>
+        { redirect ? <Redirect to='/' /> : renderForm }
+      </div>
     );
   }
 }

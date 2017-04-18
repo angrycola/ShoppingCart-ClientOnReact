@@ -46,10 +46,8 @@ class SignUpForm extends Component {
 
   render () {
     const { isUserExists, errors, redirect, email, password, passwordConfirmation } = this.state;
-
-    return (
+    const renderForm = (
       <Segment>
-        { redirect && <Redirect to='/' /> }
         <Form success error onSubmit={ this.onSubmit }>
           <Header size='large'>Sign Up</Header>
           <Form.Field error={ !!errors.invalidEmail || isUserExists }>
@@ -71,7 +69,7 @@ class SignUpForm extends Component {
               name='password'
               type='password'
               placeholder='8 +'
-            />
+              />
           </Form.Field>
 
           <Form.Field error={ !!errors.confirmation  }>
@@ -81,12 +79,18 @@ class SignUpForm extends Component {
               value={ passwordConfirmation }
               name='passwordConfirmation'
               type='password'
-            />
+              />
           </Form.Field>
 
           <Button fluid disabled={ errors !== '' || isUserExists }>Sign Up</Button>
         </Form>
       </Segment>
+    );
+
+    return (
+      <div>
+        { redirect ? <Redirect to='/' /> : renderForm }
+      </div>
     );
   }
 }
