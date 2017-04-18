@@ -33,16 +33,16 @@ class SignUpForm extends Component {
   }
 
   onSubmit = event => {
-  event.preventDefault();
-  const { email, password, errors, valid } = validateSignUp(this.state.email, this.state.password, this.state.passwordConfirmation)
+    event.preventDefault();
+    const { email, password, errors, valid } = validateSignUp(this.state.email, this.state.password, this.state.passwordConfirmation)
 
-  if (valid) {
-    this.props.signUpRequest({ email, password });
-    this.setState({ redirect: true });
-  } else {
-    this.setState({ errors });
+    if (valid) {
+      this.props.signUpRequest({ email, password });
+      this.setState({ redirect: true });
+    } else {
+      this.setState({ errors });
+    }
   }
-}
 
   render () {
     const { isUserExists, errors, redirect, email, password, passwordConfirmation } = this.state;
