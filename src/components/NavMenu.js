@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signOutUser } from '../actions/auth';
@@ -7,12 +7,15 @@ import { Menu } from 'semantic-ui-react';
 import SignUpPage from './auth/SignUpPage';
 import SignInPage from './auth/SignInPage';
 
-
 class NavMenu extends Component {
 
   state = {}
 
   handleClick = (event, { name }) => {
+    this.setState({ activeItem: name });
+  }
+
+  handleSignOut = (event, { name }) => {
     this.setState({ activeItem: name });
     this.props.signOutUser();
   }
@@ -28,7 +31,7 @@ class NavMenu extends Component {
           to='/signout'
           name='signout'
           active={ activeItem === 'signout' }
-          onClick={ this.handleClick }>
+          onClick={ this.handleSignOut }>
             Sign Out
         </Menu.Item>
       </Menu.Menu>
@@ -82,4 +85,4 @@ NavMenu.propTypes = {
 
 const mapStateToProps = state => ({ auth: state.auth });
 
-export default connect(mapStateToProps, { signOutUser })(NavMenu);
+export default withRouter(connect(mapStateToProps, { signOutUser })(NavMenu));
