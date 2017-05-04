@@ -30,3 +30,21 @@ export const addOrIncrease = (products, id, title, price) => {
     return [...products, { title, price, _id: id, qty: 1 } ];
   }
 };
+
+
+export const decreaseByOne = (products, id) => {
+  const index = products.findIndex(item => item._id === id);
+
+  if (products[index].qty > 1) {
+    return [
+      ...products.slice(0, index),
+      { ...products[index], qty: products[index].qty - 1 },
+      ...products.slice(index + 1)
+    ];
+  } else if (products[index].qty === 1) {
+    return [
+      ...products.slice(0, index),
+      ...products.slice(index + 1)
+    ];
+  }
+};

@@ -13,24 +13,29 @@ class CartPage extends React.Component {
     return (
       <Grid centered>
         <Grid.Column width={ 12 }>
-          <Table stackable>
+          <Table striped>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.HeaderCell>Qty</Table.HeaderCell>
-                <Table.HeaderCell></Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'>Qty</Table.HeaderCell>
+                <Table.HeaderCell>Total</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
-              { renderCart() }
+
             <Table.Body>
-              <Table.Row>
-                <Table.Cell></Table.Cell>
-                <Table.Cell></Table.Cell>
-                <Table.Cell></Table.Cell>
-                <Table.Cell textAlign='right'><Header>Total: { cart.totalPrice }</Header></Table.Cell>
-              </Table.Row>
+              { renderCart() }
             </Table.Body>
+
+            <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell><Header> { cart.totalPrice }</Header></Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
+            
           </Table>
         </Grid.Column>
       </Grid>

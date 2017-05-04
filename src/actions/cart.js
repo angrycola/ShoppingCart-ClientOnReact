@@ -1,5 +1,6 @@
 import C from '../constants';
 
 export const indexCart = cart => ({ type: C.SET_CART, payload: cart });
-
 export const addToCart = product => ({ type: C.ADD_TO_CART, payload: product });
+
+export const decreaseOne = product => ({ type: C.DECREASE_ONE, payload: product });
