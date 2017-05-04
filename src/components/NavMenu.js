@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Link, Route, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link, Route, withRouter } from 'react-router-dom';
+import { Menu, Icon } from 'semantic-ui-react';
+
 import { signOutUser } from '../actions/auth';
-import { Menu } from 'semantic-ui-react';
+
 import SignUpPage from './auth/SignUpPage';
 import SignInPage from './auth/SignInPage';
-
 import ProductsPage from './products/ProductsPage';
+import CartPage from './cart/CartPage';
+
 
 class NavMenu extends Component {
 
@@ -26,6 +29,17 @@ class NavMenu extends Component {
     const { activeItem } = this.state;
     const { auth, cart } = this.props;
     console.log('Echo Cart', cart)
+
+    const renderCart = (
+      <Menu.Item
+        as={ Link }
+        to='/cart'
+        name='cart'
+        active={ activeItem === 'cart' }
+        onClick={ this.handleClick }>
+          <Icon name='shopping basket' /> { cart.totalQty }
+      </Menu.Item>
+    );
 
     const authed = (
       <Menu.Menu position='right'>
@@ -81,11 +95,13 @@ class NavMenu extends Component {
           onClick={ this.handleClick }>
             Products
         </Menu.Item>
+        { cart.items.length > 0 && renderCart }
         { auth.isAuthenticated ? authed : unauthed }
         </Menu>
         <Route path='/signup' component={ SignUpPage } />
         <Route path='/signin' component={ SignInPage } />
         <Route path='/products' component={ ProductsPage } />
+        <Route path='/cart' render={ () => <CartPage cart={ cart} /> } />
       </div>
     );
   }

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Message, Icon } from 'semantic-ui-react';
 import ProductCard from './ProductCard';
 
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, addToCart }) => {
 
   const noProducts = (
     <Grid.Column width={ 12 }>
@@ -23,6 +23,7 @@ const ProductList = ({ products }) => {
         <Grid.Column key={ product._id }>
           <ProductCard
             product={ product }
+            addToCart={ addToCart }
           />
         <p>&nbsp;</p>
         </Grid.Column>
@@ -35,6 +36,11 @@ const ProductList = ({ products }) => {
       { products.length === 0 ? noProducts : productsList }
     </Grid>
   );
+}
+
+ProductList.propTypes = {
+  products: PropTypes.array.isRequired,
+  addToCart: PropTypes.func.isRequired,
 }
 
 export default ProductList;

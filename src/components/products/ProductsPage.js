@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { indexProducts } from '../../actions/products';
-
 import ProductsList from './ProductsList';
+import { indexProducts } from '../../actions/products';
+import { addToCart } from '../../actions/cart';
+
 
 
 class ProductsPage extends Component {
@@ -14,13 +15,14 @@ class ProductsPage extends Component {
   }
 
   render () {
-    const { products } = this.props;
+    const { products, addToCart } = this.props;
 
     return (
       <div>
         <h1>Products</h1>
         <ProductsList
           products={ products }
+          addToCart={ addToCart }
         />
       </div>
     );
@@ -29,9 +31,10 @@ class ProductsPage extends Component {
 
 ProductsPage.propTypes = {
   products: PropTypes.array.isRequired,
-  indexProducts: PropTypes.func.isRequired
+  indexProducts: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({ products: state.products });
 
-export default connect(mapStateToProps, { indexProducts })(ProductsPage);
+export default connect(mapStateToProps, { indexProducts, addToCart })(ProductsPage);
