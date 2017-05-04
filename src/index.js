@@ -11,6 +11,10 @@ import reducer from './reducers';
 import { setAuthToken } from './lib/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import { setCurrentUser } from './actions/auth';
+
+import { setCart } from './lib/cart';
+import { indexCart } from './actions/cart';
+
 import './styles/index.css';
 
 
@@ -24,6 +28,14 @@ const store = createStore(
 if (localStorage.token) {
   setAuthToken(localStorage.token);
   store.dispatch(setCurrentUser(jwtDecode(localStorage.token)));
+}
+
+if (localStorage.cart) {
+  const cart = JSON.parse(localStorage.cart);
+  store.dispatch(indexCart(cart))
+} else {
+  const cart = setCart();
+  store.dispatch(indexCart(cart))
 }
 
 ReactDOM.render(

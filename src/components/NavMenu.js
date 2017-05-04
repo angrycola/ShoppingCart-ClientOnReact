@@ -24,7 +24,8 @@ class NavMenu extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const { auth } = this.props;
+    const { auth, cart } = this.props;
+    console.log('Echo Cart', cart)
 
     const authed = (
       <Menu.Menu position='right'>
@@ -92,9 +93,10 @@ class NavMenu extends Component {
 
 NavMenu.propTypes = {
   signOutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => ({ auth: state.auth });
+const mapStateToProps = state => ({ auth: state.auth, cart: state.cart });
 
 export default withRouter(connect(mapStateToProps, { signOutUser })(NavMenu));
