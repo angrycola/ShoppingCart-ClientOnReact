@@ -5,6 +5,7 @@ import { Link, Route, withRouter } from 'react-router-dom';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import { signOutUser } from '../actions/auth';
+import { sendOrder } from '../actions/cart';
 
 import SignUpPage from './auth/SignUpPage';
 import SignInPage from './auth/SignInPage';
@@ -27,7 +28,7 @@ class NavMenu extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const { auth, cart } = this.props;
+    const { auth, cart, sendOrder } = this.props;
     console.log('Echo Cart', cart)
 
     const renderCart = (
@@ -101,7 +102,7 @@ class NavMenu extends Component {
         <Route path='/signup' component={ SignUpPage } />
         <Route path='/signin' component={ SignInPage } />
         <Route path='/products' component={ ProductsPage } />
-        <Route path='/cart' render={ () => <CartPage cart={ cart} /> } />
+        <Route path='/cart' render={ () => <CartPage cart={ cart } auth={ auth } sendOrder={ sendOrder }/> } />
       </div>
     );
   }
@@ -109,10 +110,11 @@ class NavMenu extends Component {
 
 NavMenu.propTypes = {
   signOutUser: PropTypes.func.isRequired,
+  sendOrder: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({ auth: state.auth, cart: state.cart });
 
-export default withRouter(connect(mapStateToProps, { signOutUser })(NavMenu));
+export default withRouter(connect(mapStateToProps, { signOutUser, sendOrder })(NavMenu));
