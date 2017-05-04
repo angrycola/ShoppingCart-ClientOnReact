@@ -7,6 +7,8 @@ import { Menu } from 'semantic-ui-react';
 import SignUpPage from './auth/SignUpPage';
 import SignInPage from './auth/SignInPage';
 
+import ProductsPage from './products/ProductsPage';
+
 class NavMenu extends Component {
 
   state = {}
@@ -70,17 +72,27 @@ class NavMenu extends Component {
             onClick={ this.handleClick }>
               App
         </Menu.Item>
+        <Menu.Item
+          as={ Link }
+          to='/products'
+          name='products'
+          active={ activeItem === 'products' }
+          onClick={ this.handleClick }>
+            Products
+        </Menu.Item>
         { auth.isAuthenticated ? authed : unauthed }
         </Menu>
         <Route path='/signup' component={ SignUpPage } />
         <Route path='/signin' component={ SignInPage } />
+        <Route path='/products' component={ ProductsPage } />
       </div>
     );
   }
 }
 
 NavMenu.propTypes = {
-  signOutUser: PropTypes.func.isRequired
+  signOutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({ auth: state.auth });
