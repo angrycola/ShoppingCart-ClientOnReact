@@ -26,7 +26,7 @@ class CartPage extends React.Component {
 
     return (
       <Grid centered>
-        { this.state.redirect && <Redirect to='/signin' /> }
+        { this.state.redirect && <Redirect to='/signin' push /> }
         <Grid.Column width={ 12 }>
           <Table striped>
             <Table.Header>
@@ -51,14 +51,19 @@ class CartPage extends React.Component {
               </Table.Row>
             </Table.Footer>
           </Table>
-          <Button floated='right' size='large' animated='fade' onClick={ () => this.toOrder() }>
-            <Button.Content visible>
-              Send this order
-            </Button.Content>
-            <Button.Content hidden>
-              <Icon name='right arrow' />
-            </Button.Content>
-          </Button>
+
+          <Button.Group floated='right' >
+            <Button size='large' onClick={ () => history.back() }>Back</Button>
+            <Button.Or />
+            <Button size='large' animated='fade' onClick={ () => this.toOrder() }>
+              <Button.Content visible>
+                Send this order
+              </Button.Content>
+              <Button.Content hidden>
+                <Icon name='right arrow' />
+              </Button.Content>
+            </Button>
+          </Button.Group>
         </Grid.Column>
       </Grid>
     );

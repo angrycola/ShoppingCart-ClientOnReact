@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { Form, Segment, Header, Button } from 'semantic-ui-react';
 import { validateSignIn } from '../../lib/validateAuth';
 
@@ -85,7 +84,7 @@ class SignInForm extends Component {
 
     return (
       <div>
-        { redirect ? <Redirect to='/' /> : renderForm }
+        { redirect ? history.back() : renderForm }
       </div>
     );
   }
