@@ -89,7 +89,7 @@ class SignUpForm extends Component {
 
     return (
       <div>
-        { redirect ? <Redirect to='/' /> : renderForm }
+        { redirect ? <Redirect to='/signin' /> : renderForm }
       </div>
     );
   }

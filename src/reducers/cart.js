@@ -1,5 +1,5 @@
 import C from '../constants';
-import { addOrIncrease, toLocalStorage, decreaseByOne } from '../lib/cart';
+import { addOrIncrease, toLocalStorage, decreaseByOne, setCart } from '../lib/cart';
 
 export default function (state={}, action={}) {
   switch (action.type) {
@@ -17,7 +17,7 @@ export default function (state={}, action={}) {
     return updateIncreased;
 
     case C.DECREASE_ONE:
-      
+
       const updateDecreased = {
         items:  decreaseByOne(state.items, action.payload._id),
         totalQty: state.totalQty - 1,
@@ -25,6 +25,10 @@ export default function (state={}, action={}) {
       };
       toLocalStorage(updateDecreased);
     return updateDecreased;
+
+    case C.EMPTY_CART:
+      const updateErased = setCart();
+    return updateErased;
 
     default: return state;
   }

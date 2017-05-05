@@ -1,7 +1,7 @@
 import axios from 'axios';
 import C from '../constants';
 
-const baseURL = 'http://localhost:8080/products';
+const baseURL = 'https://shopping-cart-server/products';
 
 export const indexProducts = () => dispatch => axios.get(baseURL)
   .then(res => {

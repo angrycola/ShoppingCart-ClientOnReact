@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Segment, Header, Button } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 import { validateSignIn } from '../../lib/validateAuth';
 
 class SignInForm extends Component {
@@ -48,8 +49,6 @@ class SignInForm extends Component {
   render () {
     const { errors, isUserExists, redirect, email, password } = this.state;
 
-
-
     const renderForm = (
       <Segment>
         <Form onSubmit={ this.onSubmit }>
@@ -84,7 +83,7 @@ class SignInForm extends Component {
 
     return (
       <div>
-        { redirect ? history.back() : renderForm }
+        { redirect ? <Redirect to='/products' /> : renderForm }
       </div>
     );
   }

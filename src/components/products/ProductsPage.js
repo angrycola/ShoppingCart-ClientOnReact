@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import ProductsList from './ProductsList';
 import { indexProducts } from '../../actions/products';
 import { addToCart } from '../../actions/cart';
-
-
 
 class ProductsPage extends Component {
 

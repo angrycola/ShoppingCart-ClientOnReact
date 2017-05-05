@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Route, withRouter } from 'react-router-dom';
+import { Link, Route, withRouter, Redirect } from 'react-router-dom';
 import { Menu, Icon } from 'semantic-ui-react';
-
 import { signOutUser } from '../actions/auth';
 import { sendOrder } from '../actions/cart';
-
 import SignUpPage from './auth/SignUpPage';
 import SignInPage from './auth/SignInPage';
 import ProductsPage from './products/ProductsPage';
@@ -29,7 +27,6 @@ class NavMenu extends Component {
   render() {
     const { activeItem } = this.state;
     const { auth, cart, sendOrder } = this.props;
-    console.log('Echo Cart', cart)
 
     const renderCart = (
       <Menu.Item
@@ -102,6 +99,7 @@ class NavMenu extends Component {
         <Route path='/signup' component={ SignUpPage } />
         <Route path='/signin' component={ SignInPage } />
         <Route path='/products' component={ ProductsPage } />
+        <Route path='/signout' render={ () => <Redirect to='/' /> } />
         <Route path='/cart' render={ () => <CartPage cart={ cart } auth={ auth } sendOrder={ sendOrder }/> } />
       </div>
     );

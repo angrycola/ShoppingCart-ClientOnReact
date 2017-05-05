@@ -15,7 +15,7 @@ class SignUpPage extends Component {
           <SignUpForm
             signUpRequest={ signUpRequest }
             isUserExists={ isUserExists }
-            />
+          />
         </Grid.Column>
       </Grid>
     );
@@ -27,6 +27,4 @@ SignUpPage.propTypes = {
   isUserExists: PropTypes.func.isRequired
 }
 
-export default connect (null,
-  { signUpRequest, isUserExists }
-)(SignUpPage);
+export default connect (null, { signUpRequest, isUserExists })(SignUpPage);

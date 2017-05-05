@@ -27,7 +27,4 @@ SignIn.propTypes = {
   isUserExists: PropTypes.func
 }
 
-export default connect(
-  null,
-  { signInRequest, isUserExists }
-)(SignIn);
+export default connect(null, { signInRequest, isUserExists })(SignIn);

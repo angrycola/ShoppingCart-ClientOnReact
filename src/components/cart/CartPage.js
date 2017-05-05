@@ -19,13 +19,14 @@ class CartPage extends React.Component {
     }
   }
 
-
   render () {
     const { cart } = this.props;
     const renderCart = () => cart.items.map(item => <CartCard key={ item._id } item={ item } />);
-
+    const isEmpty = cart.items.length > 0;
+    
     return (
-      <Grid centered>
+      <div>
+        { isEmpty && <Grid centered>
         { this.state.redirect && <Redirect to='/signin' push /> }
         <Grid.Column width={ 12 }>
           <Table striped>
@@ -52,10 +53,9 @@ class CartPage extends React.Component {
             </Table.Footer>
           </Table>
 
-          <Button.Group floated='right' >
-            <Button size='large' onClick={ () => history.back() }>Back</Button>
-            <Button.Or />
-            <Button size='large' animated='fade' onClick={ () => this.toOrder() }>
+          <Button.Group floated='right' size='large'>
+            <Button onClick={ () => history.back() }>Back</Button>
+            <Button animated='fade' onClick={ () => this.toOrder() }>
               <Button.Content visible>
                 Send this order
               </Button.Content>
@@ -64,8 +64,11 @@ class CartPage extends React.Component {
               </Button.Content>
             </Button>
           </Button.Group>
+
         </Grid.Column>
       </Grid>
+        }
+      </div>
     );
   }
 }
