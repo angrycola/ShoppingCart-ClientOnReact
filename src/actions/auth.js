@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 import { setAuthToken } from '../lib/setAuthToken';
 import C from '../constants';
 
-const baseURL = 'https://shopping-cart-server/users';
+const baseURL = 'https://shopping-cart-server.herokuapp.com/users';
 
 export const setCurrentUser = user => ({ type: C.SET_CURRENT_USER, payload: user });
 export const signInRequest = userData => dispatch => axios.post(`${ baseURL }/signin`, userData)

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import C from '../constants';
 
-const baseURL = 'https://shopping-cart-server/';
+const baseURL = 'https://shopping-cart-server.herokuapp.com';
 
 export const indexCart = cart => ({ type: C.SET_CART, payload: cart });
 export const addToCart = product => ({ type: C.ADD_TO_CART, payload: product });

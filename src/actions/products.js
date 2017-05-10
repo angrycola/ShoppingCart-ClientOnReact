@@ -1,7 +1,7 @@
 import axios from 'axios';
 import C from '../constants';
 
-const baseURL = 'https://shopping-cart-server/products';
+const baseURL = 'https://shopping-cart-server.herokuapp.com/products';
 
 export const indexProducts = () => dispatch => axios.get(baseURL)
   .then(res => {
